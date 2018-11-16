@@ -1,0 +1,219 @@
+body {
+    position: fixed;
+	background: #c9dbe9;
+	background-image: url(http://makepixelart.com/peoplepods/files/images/1705144.original.png);
+    background-size: cover;
+    margin-top: 0px;
+    margin-left: 0px; 
+}
+
+#player {
+    width: 200px;
+    height: 200px;
+    position:relative;
+    margin-top: 623px;
+}
+
+#player img{
+    width: 200px;
+    height: 200px;
+}
+
+#comp {
+    width: 200px;
+    height: 200px;
+    position:fixed;
+    left: 0;
+    top: 0;
+    margin-top: 25px;
+    margin-left: 500px;
+}
+
+#comp img{
+    width: 200px;
+    height: 200px
+}
+
+#shot {
+    width:10px;
+    height: 20px;
+    background-color: crimson;
+    border-radius: 50px;
+    position: relative;
+    left: 44px;
+    top: 75px;
+    display: none;
+}
+
+#compShot {
+    width:10px;
+    height: 20px;
+    background-color:blueviolet;
+    border-radius: 50px;
+    position: relative;
+    left: 44px;
+    top: 300px;
+    display: none;
+}
+
+
+#inMo{
+    width:10px;
+    height: 20px;
+    background-color: crimson;
+    border-radius: 50px;
+    display: inline-block;
+    position: absolute;
+    margin-left: 93px;
+    margin-top: 50px
+}
+
+#compInMo{
+    width:10px;
+    height: 20px;
+    background-color:blueviolet;
+    border-radius: 50px;
+    position: relative;
+    left: 83px;
+    top: 135px;
+    display: inline-block;
+}
+
+#compHealth{
+    width: 500px;
+    height: 10px;
+    border-style:groove;
+    border-color:blueviolet;
+    background-color:forestgreen;
+    position:relative;
+    left: 0;
+    top: 0;
+    margin-left: 1173px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 0px;
+}
+
+#playerHealth{
+    width: 500px;
+    height: 10px;
+    border-style:groove;
+    border-color:deepskyblue;
+    background-color:darkgray;
+    position:absolute;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    text-align: center;
+    
+}
+
+#playArea {
+    display: none;
+}
+
+#instruct{
+    width: 800px;
+    height: 800px;
+    background-color:azure;
+    border-radius: 20px;
+    margin-left: -400px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-style:outset;
+    border-color:aquamarine; 
+    display: inline-block;
+}
+
+ h1{
+    font-family: sans-serif;
+    color:darkblue;
+}
+
+#instruct > p{
+    font-family: sans-serif;
+    color:blue;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 150px;
+}
+
+#play{
+    color: aqua;
+    clear: both;
+    display: inline-block;
+    margin-left: 150px;
+    position: relative;
+    bottom: 5px;
+}
+
+.playAgain{
+    color: aqua;
+    clear: both;
+    display: inline-block;
+    margin-left: 150px;
+    position: relative;
+    bottom: 5px;
+}
+
+#controls{
+    width: 400px;
+    height: 300px;
+    background-color:cornflowerblue;
+    display: inline-block;
+    border-top-style: inset;
+    border-right-style: inset;
+    border-width: thick;
+    border-color:aquamarine;
+    border-bottom-left-radius: 20px;
+    margin-top: 50px;
+    
+}
+
+#controls >p{
+    margin-top: 40px;
+    font-family: sans-serif
+}
+
+#victory{
+    height: 200px;
+    width: 300px;
+    background-color:azure;
+    border-radius: 20px;
+    margin-left: 600px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-style:outset;
+    border-color:aquamarine; 
+    margin-top: -1000px;
+    display: none;
+    
+}
+
+#victory>p{
+    font-family: sans-serif;
+    color:blue;
+    text-align: center;
+}
+
+#loss{
+    height: 200px;
+    width: 300px;
+    background-color:azure;
+    border-radius: 20px;
+    margin-left: 600px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-style:outset;
+    border-color:aquamarine; 
+    margin-top: -1000px;
+    display: none;
+    
+}
+
+#loss>p{
+    font-family: sans-serif;
+    color:blue;
+    text-align: center;
+}
+

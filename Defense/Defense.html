@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+    <head>    
+        <title>Defense</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+$('#instruct').animate({marginLeft: "+=400px"},500)
+var playGame = function (){
+    $('#playArea').fadeIn('slow')
+    
+    //Victory and Death
+    var victory = function(){
+    $('#victory').fadeIn('slow') 
+    $('#victory').animate({marginTop: "+=1000px"},1000)
+    }
+    
+    var loss =function(){
+    $('#loss').fadeIn('slow') 
+    $('#loss').animate({marginTop: "+=1000px"},1000)
+    }
+     //Hit Detection
+
+        var hitDetect = function(){
+            setTimeout(function(){
+    if((0<= document.getElementById('comp').offsetLeft-document.getElementById('player').offsetLeft && document.getElementById('comp').offsetLeft-document.getElementById('player').offsetLeft<= 40) || (0<= document.getElementById('player').offsetLeft-document.getElementById('comp').offsetLeft && document.getElementById('player').offsetLeft-document.getElementById('comp').offsetLeft<=30)){
+            console.log("hit!")
+            $('#compHealth').animate({width: "-=5"},100)
+             if(document.getElementById('compHealth').style.width  === '0px' ){
+            $('#playArea').fadeOut('slow');
+            $('#comp').fadeOut('slow');
+            $('#comp').remove();
+            $('#compHealth').remove();
+            victory();
+            }
+    }
+            },450);
+
+            setTimeout(function(){
+    if((0<= document.getElementById('comp').offsetLeft-document.getElementById('player').offsetLeft && document.getElementById('comp').offsetLeft-document.getElementById('player').offsetLeft<= 40) || (0<= document.getElementById('player').offsetLeft-document.getElementById('comp').offsetLeft && document.getElementById('player').offsetLeft-document.getElementById('comp').offsetLeft<=30)){
+            console.log("hit!")
+            $('#compHealth').animate({width: "-=5"},100)
+                if(document.getElementById('compHealth').style.width  === '0px' ){
+            $('#playArea').fadeOut('slow');
+            $('#comp').fadeOut('slow');
+            $('#comp').remove();
+            $('#compHealth').remove();
+            victory();
+            }
+    }
+            },500);
+        }    
+
+            var compHitDetect = function(){
+            setTimeout(function(){
+    if((0<= document.getElementById('comp').offsetLeft-document.getElementById('player').offsetLeft && document.getElementById('comp').offsetLeft-document.getElementById('player').offsetLeft<= 50) || (0<= document.getElementById('player').offsetLeft-document.getElementById('comp').offsetLeft && document.getElementById('player').offsetLeft-document.getElementById('comp').offsetLeft<=45)){
+            console.log("hit!")
+            $('#playerHealth').animate({width: "-=10"},10)
+             if(document.getElementById('playerHealth').style.width  === '0px' ){
+            $('#playArea').fadeOut('slow');
+            $('#player').fadeOut('slow');
+            $('#player').remove();
+            $('#playerHealth').remove()
+            loss()
+            }
+    }
+            },450);
+        } 
+
+        // The Computer
+        var computer = new Object()
+        computer.x = 0;
+        computer.y = 0;
+
+    //COMP CONTROLS
+        var living = 1
+
+        var compShoot = function(){
+            $('#compShot').after('<div id="compInMo"></div>');
+            $('#compInMo').animate({top: "+=10000px"},3000)
+            setTimeout(function(){
+               setInterval(function(){
+                   $('#compInMo:nth-child(17)').remove()
+               },1000) 
+            },1000)   
+            compHitDetect()
+        }
+        var shots
+        while(living<=2000){
+            var direction = Math.random();
+            console.log(direction)
+            if (direction<=.5){
+                direction = "right"
+            } else{
+                direction = "left"
+            };
+
+            switch(direction) {
+
+                    case "left":
+                        $('#comp').animate({left: "-=500px"}, 750)
+                        computer.x -=500;
+                        if(computer.x<0){
+                       $('#comp').animate({left: "+=500px"}, 750);
+                        computer.x += 500;
+                        }
+                        break;
+                   case "right":
+                       $('#comp').animate({left: "+=500px"}, 750);
+                       computer.x +=500;
+                        if(computer.x>=1000){
+                        $('#comp').animate({left: "-=500px"}, 750)
+                        computer.x -=500;;
+                        }
+                      break;
+
+
+
+            };
+            living = living+1
+                //boundaries
+
+
+        }
+                       setInterval(function(){compShoot()},500)
+                       setInterval(function(){compShoot()},500)                
+
+        //shooting function
+        var shoot = function(){
+            $('#shot').after('<div id="inMo"></div>');
+            $('#inMo').animate({top: "-=10000px"},3000)
+            setTimeout(function(){
+               setInterval(function(){
+                   $('#inMo:nth-child(17)').remove()
+               },1000) 
+            },1000)   
+            hitDetect()
+        }
+
+
+        //PLAYER CONTROLS
+        //player input tracker
+        var input = new Array();
+        input=[1,1]
+
+        //input options
+        $(document).keydown(function(key) {
+            switch(parseInt(key.which,10)) {
+                // Left arrow key pressed
+                case 65:
+                    $('#player').animate({left: "-=3000px"}, 2000);
+                    input[1]=65 
+                    break;
+                // Right Arrow Pressed
+                case 68:
+                    $('#player').animate({left: "+=3000px"}, 2000);
+                    input[1]=68
+                    break;
+                case 87:
+                    input[0]=87
+                    break;
+
+            }
+                
+                 if(input[0]===87){
+                    shoot()
+
+                 }
+            console.log(input)
+        });
+
+        //ending the input
+        $(document).keyup(function(key){
+            switch(parseInt(key.which,10)) {
+                case 65:
+                    $('#player').stop(true,false)
+                    $('#shot').stop(true,false)
+                    input[1]=1
+                    break;
+                case 68:
+                    $('#player').stop(true,false)
+                    $('#shot').stop(true,false)
+                    input[1]=1
+                    break;
+                case 87:
+                    $('#shot').stop(true,false)
+                    input[0]=1
+                    break;
+            }
+         });   
+
+}
+        $('#play').click(function(){
+            $('#instruct').remove();
+            playGame()
+        })
+        
+        $('.playAgain').click(function(){
+            location.reload()
+        })
+    })
+        </script>
+        <style>
+        body {
+	background: #c9dbe9;
+	background-image: url(http://makepixelart.com/peoplepods/files/images/1705144.original.png);
+    background-size: cover;
+    margin-top: 0px;
+    margin-left: 0px; 
+}
+
+#player {
+    width: 200px;
+    height: 200px;
+    position:relative;
+    margin-top: 623px;
+}
+
+#player img{
+    width: 200px;
+    height: 200px;
+}
+
+#comp {
+    width: 200px;
+    height: 200px;
+    position:fixed;
+    left: 0;
+    top: 0;
+    margin-top: 25px;
+    margin-left: 500px;
+}
+
+#comp img{
+    width: 200px;
+    height: 200px
+}
+
+#shot {
+    width:10px;
+    height: 20px;
+    background-color: crimson;
+    border-radius: 50px;
+    position: relative;
+    left: 44px;
+    top: 75px;
+    display: none;
+}
+
+#compShot {
+    width:10px;
+    height: 20px;
+    background-color:blueviolet;
+    border-radius: 50px;
+    position: relative;
+    left: 44px;
+    top: 300px;
+    display: none;
+}
+
+
+#inMo{
+    width:10px;
+    height: 20px;
+    background-color: crimson;
+    border-radius: 50px;
+    display: inline-block;
+    position: absolute;
+    margin-left: 93px;
+    margin-top: 50px
+}
+
+#compInMo{
+    width:10px;
+    height: 20px;
+    background-color:blueviolet;
+    border-radius: 50px;
+    position: relative;
+    left: 83px;
+    top: 135px;
+    display: inline-block;
+}
+
+#compHealth{
+    width: 500px;
+    height: 10px;
+    border-style:groove;
+    border-color:blueviolet;
+    background-color:forestgreen;
+    position:fixed;
+    left: 0;
+    top: 0;
+    margin-left: 1173px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 0px;
+}
+
+#playerHealth{
+    width: 500px;
+    height: 10px;
+    border-style:groove;
+    border-color:deepskyblue;
+    background-color:darkgray;
+    position:fixed;
+    left: 0;
+    top: 0;
+    display: inline-block;
+    text-align: center;
+    
+}
+
+#playArea {
+    display: none;
+}
+
+#instruct{
+    width: 800px;
+    height: 800px;
+    background-color:azure;
+    border-radius: 20px;
+    margin-left: -400px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-style:outset;
+    border-color:aquamarine; 
+    display: inline-block;
+}
+
+ h1{
+    font-family: sans-serif;
+    color:darkblue;
+}
+
+#instruct > p{
+    font-family: sans-serif;
+    color:blue;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 150px;
+}
+
+#play{
+    color: aqua;
+    clear: both;
+    display: inline-block;
+    margin-left: 150px;
+    position: relative;
+    bottom: 5px;
+}
+
+.playAgain{
+    color: aqua;
+    clear: both;
+    display: inline-block;
+    margin-left: 150px;
+    position: relative;
+    bottom: 5px;
+}
+
+#controls{
+    width: 400px;
+    height: 300px;
+    background-color:cornflowerblue;
+    display: inline-block;
+    border-top-style: inset;
+    border-right-style: inset;
+    border-width: thick;
+    border-color:aquamarine;
+    border-bottom-left-radius: 20px;
+    margin-top: 50px;
+    
+}
+
+#controls >p{
+    margin-top: 40px;
+    font-family: sans-serif
+}
+
+#victory{
+    height: 200px;
+    width: 300px;
+    background-color:azure;
+    border-radius: 20px;
+    margin-left: 600px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-style:outset;
+    border-color:aquamarine; 
+    margin-top: -1000px;
+    display: none;
+    
+}
+
+#victory>p{
+    font-family: sans-serif;
+    color:blue;
+    text-align: center;
+}
+
+#loss{
+    height: 200px;
+    width: 300px;
+    background-color:azure;
+    border-radius: 20px;
+    margin-left: 600px;
+    border-bottom-width: 10px;
+    border-left-width: 10px;
+    border-style:outset;
+    border-color:aquamarine; 
+    margin-top: -1000px;
+    display: none;
+    
+}
+
+#loss>p{
+    font-family: sans-serif;
+    color:blue;
+    text-align: center;
+}
+
+
+        </style>
+
+    </head>
+    <body>
+        <div id="instruct">
+            <h1>Message From The Sargeant:</h1>
+            <p>A monsterous alien has come to terrorize our planet. We could blast him out of existence with our anti-alien ray gun, but its broken and Jeff the IT guy is still kinda miffed about last week (I have no regrets tho). Anyhow, our only option is to send you up there in our magnum opus, the defender 17. You have to keep it out of our atmosphere and destroy it at all costs!</p>
+            <div id="controls">
+                <h3>Here are the Defender 17 controls</h3>
+                <p>W: shoot</p>
+                <p>A: move left</p>
+                <p>D: move right </p>
+                <p>Good Luck!</p>
+            </div>
+            <button id="play">I'M ON IT!</button>
+        </div>
+        <div id="victory">
+            <h1>YOU WON!!</h1>
+            <p>You've vaporized the alien, good job! You go back home and make the best love to wife you've ever made. Then, you go over to Jeff the IT guy and  suckerpunch him right in the gut</p>
+            <button class="playAgain">Play Again</button>
+        </div>
+        <div id="loss">
+            <h1>YOU LOST!!</h1>
+            <p>You were destroyed by the alien. The Defender 17 came down to earth in a fiery meteor destroying a whole city. Your fleight skills go down in history as infamous.</p>
+            <button class="playAgain">Play Again</button>
+        </div>
+        <div id="playArea">
+            <div id="compHealth"></div>
+            <div id="player">
+                <div id="shot"></div>
+                <img src="http://makepixelart.com/peoplepods/files/images/1705205.original.png">
+            </div>
+            <div id="comp">
+                <div id="compShot"></div>
+                <img src="http://makepixelart.com/peoplepods/files/images/1705457.original.png">
+            </div>
+            <div id="playerHealth"></div>
+        </div>
+        
+
+
+    </body>
+</html>
+
+
